@@ -62,6 +62,57 @@ class NewRoute extends StatelessWidget {
   }
 }
 
+class TipRoute extends StatelessWidget {
+  TipRoute({
+    Key key, 
+    @required this.text,
+  }) : super(key: key);
+  final String text;
+
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("提示")),
+      body: Padding(
+        padding: EdgeInsets.all(18),
+        child: Center (
+          child: Column (
+            children: <Widget> [
+              Text(text),
+              RaisedButton(
+                onPressed: () => Navigator.pop(context, "我是返回值"),
+                child: Text("返回")
+              )
+            ]
+          )
+        )
+      )
+    );
+  }
+}
+
+class RouterTestRoute extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return Center(
+      child: RaisedButton(
+        onPressed: () async {
+          var result = await Navigator.push (
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return TipRoute(
+                  text: "我是提示XXXX"
+                  );
+              },
+            )
+          );
+          print("路由返回值: $result");
+        },
+        child: Text("打开提示页"),
+      )
+    );
+  }
+}
+
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
@@ -124,6 +175,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push (context, 
                   MaterialPageRoute(builder: (context) {
                     return NewRoute();
+                  })
+                );
+              }
+            ),
+
+                        FlatButton(
+              child: Text("Open RouterTestRoute"),
+              textColor: Colors.blue,
+              onPressed: () {
+                Navigator.push (context, 
+                  MaterialPageRoute(builder: (context) {
+                    return RouterTestRoute();
                   })
                 );
               }
