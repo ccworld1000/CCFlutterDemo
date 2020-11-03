@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      initialRoute: "/",
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -26,7 +27,13 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      routes: {
+        "CC": (context) => CCRoute(),
+        "new_page": (context) => NewRoute(),
+        "/": (context) => MyHomePage(title: 'Flutter Demo Home Page'),
+        "Tips2": (context) => TipRoute(text: ModalRoute.of(context).settings.arguments),
+      },
+      // home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
@@ -57,6 +64,21 @@ class NewRoute extends StatelessWidget {
         ),
         body: Center(
           child: Text("This is new route"),
+        ),
+    );
+  }
+}
+
+class CCRoute extends StatelessWidget {
+  Widget build(BuildContext context) {
+    var args = ModalRoute.of(context).settings.arguments;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("CC route")
+        ),
+        body: Center(
+          // child: Text("This is new route"),
+          child: Text(args),
         ),
     );
   }
@@ -180,7 +202,7 @@ class _MyHomePageState extends State<MyHomePage> {
               }
             ),
 
-                        FlatButton(
+            FlatButton(
               child: Text("Open RouterTestRoute"),
               textColor: Colors.blue,
               onPressed: () {
@@ -190,7 +212,38 @@ class _MyHomePageState extends State<MyHomePage> {
                   })
                 );
               }
-            )
+            ),
+
+            FlatButton(
+              child: Text("Open register route"),
+              textColor: Colors.blue,
+              onPressed: () {
+                Navigator.pushNamed(context, "new_page");
+                // Navigator.push (context, 
+                //   MaterialPageRoute(builder: (context) {
+                //     return RouterTestRoute();
+                //   })
+                // );
+              }
+            ),
+
+            FlatButton(
+              child: Text("Open CC register route"),
+              textColor: Colors.blue,
+              onPressed: () {
+                Navigator.of(context).pushNamed("CC", arguments: "Hi CC!");
+              }
+            ),
+
+            FlatButton(
+              child: Text("Open Tips2 route"),
+              textColor: Colors.blue,
+              onPressed: () {
+                // Navigator.of(context).pushNamed("CC", arguments: "Hi CC!");
+                Navigator.of(context).pushNamed("Tips2", arguments: "Hi Tips2 CC!");
+              }
+            ),
+
           ],
         ),
       ),
