@@ -49,6 +49,19 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
+class NewRoute extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("New route")
+        ),
+        body: Center(
+          child: Text("This is new route"),
+        ),
+    );
+  }
+}
+
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
@@ -104,6 +117,17 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
+            FlatButton(
+              child: Text("Open new route"),
+              textColor: Colors.blue,
+              onPressed: () {
+                Navigator.push (context, 
+                  MaterialPageRoute(builder: (context) {
+                    return NewRoute();
+                  })
+                );
+              }
+            )
           ],
         ),
       ),
