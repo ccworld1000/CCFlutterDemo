@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 void main() {
   runApp(MyApp());
@@ -181,6 +182,121 @@ class ContextRoute extends StatelessWidget {
   }
 }
 
+class StateRoute extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return Scaffold(
+              appBar: AppBar(
+                title: Text("子树中获取State对象"),
+              ),
+              body: Center(
+                child: Builder(builder: (context) {
+                  return RaisedButton(
+                    onPressed: () {
+                      // 查找父级最近的Scaffold对应的ScaffoldState对象
+                      ScaffoldState _state = context.findAncestorStateOfType<ScaffoldState>();
+                      //调用ScaffoldState的showSnackBar来弹出SnackBar
+                      _state.showSnackBar(
+                        SnackBar(
+                          content: Text("我是SnackBar"),
+                        ),
+                      );
+                    },
+                    child: Text("显示SnackBar"),
+                  );
+                }),
+              ),
+            );
+  }
+}
+
+class CounterWidget extends StatefulWidget {
+  const CounterWidget({
+    Key key,
+    this.initValue: 0
+  });
+
+  final int initValue;
+
+  @override
+  _CounterWidgetState createState() => new _CounterWidgetState();
+}
+
+class _CounterWidgetState extends State<CounterWidget> {  
+  int _counter;
+
+  @override
+  void initState() {
+    super.initState();
+    //初始化状态  
+    _counter=widget.initValue;
+    print("initState");
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    print("build");
+    return Scaffold(
+      body: Center(
+        child: FlatButton(
+          child: Text('$_counter'),
+          //点击后计数器自增
+          onPressed:()=>setState(()=> ++_counter,
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  void didUpdateWidget(CounterWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    print("didUpdateWidget");
+  }
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    print("deactive");
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    print("dispose");
+  }
+
+  @override
+  void reassemble() {
+    super.reassemble();
+    print("reassemble");
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    print("didChangeDependencies");
+  }
+
+}
+
+class CupertinoTestRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        middle: Text("Cupertino Demo"),
+      ),
+      child: Center(
+        child: CupertinoButton(
+            color: CupertinoColors.activeBlue,
+            child: Text("Press"),
+            onPressed: () {}
+        ),
+      ),
+    );
+  }
+}
+
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
@@ -309,6 +425,45 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push (context, 
                   MaterialPageRoute(builder: (context) {
                     return ContextRoute();
+                  })
+                );
+              }
+            ),
+
+            FlatButton(
+              child: Text("Open CounterWidget"),
+              textColor: Colors.blue,
+              onPressed: () {
+                Navigator.push (context, 
+                  MaterialPageRoute(builder: (context) {
+                      //移除计数器 
+                    return CounterWidget();
+                    //随便返回一个Text()
+                      // return Text("xxx");
+                  })
+                );
+              }
+            ),
+
+            FlatButton(
+              child: Text("Open StateRoute"),
+              textColor: Colors.blue,
+              onPressed: () {
+                Navigator.push (context, 
+                  MaterialPageRoute(builder: (context) {
+                    return StateRoute();
+                  })
+                );
+              }
+            ),
+
+            FlatButton(
+              child: Text("Open CupertinoTestRoute"),
+              textColor: Colors.blue,
+              onPressed: () {
+                Navigator.push (context, 
+                  MaterialPageRoute(builder: (context) {
+                    return CupertinoTestRoute();
                   })
                 );
               }
