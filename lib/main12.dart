@@ -135,52 +135,6 @@ class RouterTestRoute extends StatelessWidget {
   }
 }
 
-class Echo extends StatelessWidget {
-  const Echo({
-    Key key,
-    @required this.text,
-    this.backgroundColor: Colors.grey,
-  }) : super (key: key);
-
-  final String text;
-  final Color backgroundColor;
-
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("CC Echo")
-        ),
-        body: Center(
-          child: Text(text)
-        ),
-    );
-
-    // return Center(
-    //   child: Container (
-    //     color: backgroundColor,
-    //     child: Text(text)
-    //   )
-    // );
-  }
-}
-
-class ContextRoute extends StatelessWidget {
-  Widget build(BuildContext context) {
-    return Scaffold (
-      appBar: AppBar(
-        title: Text("Context测试")
-        ),
-      body: Container (
-        child: Builder (builder: (context) {
-          Scaffold scaffold = context.findAncestorWidgetOfExactType<Scaffold>();
-
-          return (scaffold.appBar as AppBar).title;
-        }),
-      )
-    );
-  }
-}
-
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
@@ -287,30 +241,6 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 // Navigator.of(context).pushNamed("CC", arguments: "Hi CC!");
                 Navigator.of(context).pushNamed("Tips2", arguments: "Hi Tips2 CC!");
-              }
-            ),
-
-            FlatButton(
-              child: Text("Open echo"),
-              textColor: Colors.blue,
-              onPressed: () {
-                Navigator.push (context, 
-                  MaterialPageRoute(builder: (context) {
-                    return Echo(text: "Hi CC");
-                  })
-                );
-              }
-            ),
-
-            FlatButton(
-              child: Text("Open ContextRoute"),
-              textColor: Colors.blue,
-              onPressed: () {
-                Navigator.push (context, 
-                  MaterialPageRoute(builder: (context) {
-                    return ContextRoute();
-                  })
-                );
               }
             ),
 
