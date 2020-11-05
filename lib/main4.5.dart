@@ -1083,49 +1083,23 @@ class _MyHomePageState extends State<MyHomePage> {
 //   ),
 // ),
 
-// Stack(
-//   alignment:Alignment.center ,
-//   fit: StackFit.expand, //未定位widget占满Stack整个空间
-//   children: <Widget>[
-//     Positioned(
-//       left: 18.0,
-//       child: Text("I am Jack"),
-//     ),
-//     Container(child: Text("Hello world",style: TextStyle(color: Colors.white)),
-//       color: Colors.red,
-//     ),
-//     Positioned(
-//       top: 18.0,
-//       child: Text("Your friend"),
-//     )
-//   ],
-// ),
-
-Container(
-  height: 120.0,
-  width: 120.0,
-  color: Colors.blue[50],
-  child: Align(
-    alignment: Alignment.topRight,
-    child: FlutterLogo(
-      size: 60,
+Stack(
+  alignment:Alignment.center ,
+  fit: StackFit.expand, //未定位widget占满Stack整个空间
+  children: <Widget>[
+    Positioned(
+      left: 18.0,
+      child: Text("I am Jack"),
     ),
-  ),
+    Container(child: Text("Hello world",style: TextStyle(color: Colors.white)),
+      color: Colors.red,
+    ),
+    Positioned(
+      top: 18.0,
+      child: Text("Your friend"),
+    )
+  ],
 ),
-
-// Container(
-//   widthFactor: 2,
-//   heightFactor: 2,
-//   alignment: Alignment(2,0.0),
-//   // color: Colors.blue[50],
-//   child: Align(
-//     alignment: Alignment.topRight,
-//     child: FlutterLogo(
-//       size: 60,
-//     ),
-//   ),
-// ),
-
 
     // CenterColumnRoute(),
     // FlexLayoutTestRoute(),

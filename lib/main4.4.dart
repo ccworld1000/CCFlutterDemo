@@ -1020,112 +1020,47 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     ),
 
-// Row(
-//   children: <Widget>[
-//     Text("xxx"*100)
-//   ],
-// ),
-
-// Wrap(
-//   spacing: 8.0, // 主轴(水平)方向间距
-//   runSpacing: 4.0, // 纵轴（垂直）方向间距
-//   alignment: WrapAlignment.center, //沿主轴方向居中
-//   children: <Widget>[
-//     new Chip(
-//       avatar: new CircleAvatar(backgroundColor: Colors.blue, child: Text('A')),
-//       label: new Text('Hamilton'),
-//     ),
-//     new Chip(
-//       avatar: new CircleAvatar(backgroundColor: Colors.blue, child: Text('M')),
-//       label: new Text('Lafayette'),
-//     ),
-//     new Chip(
-//       avatar: new CircleAvatar(backgroundColor: Colors.blue, child: Text('H')),
-//       label: new Text('Mulligan'),
-//     ),
-//     new Chip(
-//       avatar: new CircleAvatar(backgroundColor: Colors.blue, child: Text('J')),
-//       label: new Text('Laurens'),
-//     ),
-//   ],
-// ),
-
-// Flow(
-//   delegate: TestFlowDelegate(margin: EdgeInsets.all(10.0)),
-//   children: <Widget>[
-//     new Container(width: 80.0, height:80.0, color: Colors.red,),
-//     new Container(width: 80.0, height:80.0, color: Colors.green,),
-//     new Container(width: 80.0, height:80.0, color: Colors.blue,),
-//     new Container(width: 80.0, height:80.0,  color: Colors.yellow,),
-//     new Container(width: 80.0, height:80.0, color: Colors.brown,),
-//     new Container(width: 80.0, height:80.0,  color: Colors.purple,),
-//   ],
-// ),
-
-// //通过ConstrainedBox来确保Stack占满屏幕
-// ConstrainedBox(
-//   constraints: BoxConstraints.expand(),
-//   child: Stack(
-//     alignment:Alignment.center , //指定未定位或部分定位widget的对齐方式
-//     children: <Widget>[
-//       Container(child: Text("Hello world",style: TextStyle(color: Colors.white)),
-//         color: Colors.red,
-//       ),
-//       Positioned(
-//         left: 18.0,
-//         child: Text("I am Jack"),
-//       ),
-//       Positioned(
-//         top: 18.0,
-//         child: Text("Your friend"),
-//       )        
-//     ],
-//   ),
-// ),
-
-// Stack(
-//   alignment:Alignment.center ,
-//   fit: StackFit.expand, //未定位widget占满Stack整个空间
-//   children: <Widget>[
-//     Positioned(
-//       left: 18.0,
-//       child: Text("I am Jack"),
-//     ),
-//     Container(child: Text("Hello world",style: TextStyle(color: Colors.white)),
-//       color: Colors.red,
-//     ),
-//     Positioned(
-//       top: 18.0,
-//       child: Text("Your friend"),
-//     )
-//   ],
-// ),
-
-Container(
-  height: 120.0,
-  width: 120.0,
-  color: Colors.blue[50],
-  child: Align(
-    alignment: Alignment.topRight,
-    child: FlutterLogo(
-      size: 60,
-    ),
-  ),
+Row(
+  children: <Widget>[
+    Text("xxx"*100)
+  ],
 ),
 
-// Container(
-//   widthFactor: 2,
-//   heightFactor: 2,
-//   alignment: Alignment(2,0.0),
-//   // color: Colors.blue[50],
-//   child: Align(
-//     alignment: Alignment.topRight,
-//     child: FlutterLogo(
-//       size: 60,
-//     ),
-//   ),
-// ),
+Wrap(
+  spacing: 8.0, // 主轴(水平)方向间距
+  runSpacing: 4.0, // 纵轴（垂直）方向间距
+  alignment: WrapAlignment.center, //沿主轴方向居中
+  children: <Widget>[
+    new Chip(
+      avatar: new CircleAvatar(backgroundColor: Colors.blue, child: Text('A')),
+      label: new Text('Hamilton'),
+    ),
+    new Chip(
+      avatar: new CircleAvatar(backgroundColor: Colors.blue, child: Text('M')),
+      label: new Text('Lafayette'),
+    ),
+    new Chip(
+      avatar: new CircleAvatar(backgroundColor: Colors.blue, child: Text('H')),
+      label: new Text('Mulligan'),
+    ),
+    new Chip(
+      avatar: new CircleAvatar(backgroundColor: Colors.blue, child: Text('J')),
+      label: new Text('Laurens'),
+    ),
+  ],
+),
 
+Flow(
+  delegate: TestFlowDelegate(margin: EdgeInsets.all(10.0)),
+  children: <Widget>[
+    new Container(width: 80.0, height:80.0, color: Colors.red,),
+    new Container(width: 80.0, height:80.0, color: Colors.green,),
+    new Container(width: 80.0, height:80.0, color: Colors.blue,),
+    new Container(width: 80.0, height:80.0,  color: Colors.yellow,),
+    new Container(width: 80.0, height:80.0, color: Colors.brown,),
+    new Container(width: 80.0, height:80.0,  color: Colors.purple,),
+  ],
+),
 
     // CenterColumnRoute(),
     // FlexLayoutTestRoute(),
