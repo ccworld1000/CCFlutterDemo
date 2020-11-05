@@ -493,53 +493,9 @@ class _TapboxCState extends State<TapboxC> {
   }
 }
 
-class SwitchAndCheckBoxTestRoute extends StatefulWidget {
-  @override
-  _SwitchAndCheckBoxTestRouteState createState() => new _SwitchAndCheckBoxTestRouteState();
-}
-
-class _SwitchAndCheckBoxTestRouteState extends State<SwitchAndCheckBoxTestRoute> {
-  bool _switchSelected=true; //维护单选开关状态
-  bool _checkboxSelected=true;//维护复选框状态
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Switch(
-          value: _switchSelected,//当前状态
-          onChanged:(value){
-            //重新构建页面  
-            setState(() {
-              _switchSelected=value;
-            });
-          },
-        ),
-        Checkbox(
-          value: _checkboxSelected,
-          activeColor: Colors.red, //选中时的颜色
-          onChanged:(value){
-            setState(() {
-              _checkboxSelected=value;
-            });
-          } ,
-        )
-      ],
-    );
-  }
-}
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  TextEditingController _unameController = TextEditingController();
-
-  @override
-  void initState() {
-  //监听输入改变  
-  _unameController.addListener((){
-    print(_unameController.text);
-  });
-}
-
 
   void _incrementCounter() {
     setState(() {
@@ -586,78 +542,13 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            RaisedButton(child: Text("RaisedButton normal"), onPressed: () {}),
-            FlatButton(child: Text("FlatButton normal"), onPressed: () {}),
-            OutlineButton(child: Text("OutlineButton normal"), onPressed: () {}),
-            IconButton(icon: Icon(Icons.thumb_up), onPressed: () {}),
-
-SwitchAndCheckBoxTestRoute(),
-
-          TextField(
-            autofocus: true,
-            controller: _unameController, //设置controller
-            decoration: InputDecoration(
-                labelText: "用户名",
-                hintText: "用户名或邮箱",
-                prefixIcon: Icon(Icons.person)
+            Text(
+              'You have pushed the button this many times:',
             ),
-                onChanged: (v) {
-      print("onChange: $v");
-    }
-          ),
-          TextField(
-            controller: _unameController, //设置controller
-            decoration: InputDecoration(
-                labelText: "密码",
-                hintText: "您的登录密码",
-                prefixIcon: Icon(Icons.lock)
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.headline4,
             ),
-            obscureText: true,
-                onChanged: (v) {
-      print("onChange: $v");
-    }
-          ),
-
-
-// RaisedButton.icon(
-//   icon: Icon(Icons.send),
-//   label: Text("发送"),
-//   onPressed: () {},
-// ),
-// OutlineButton.icon(
-//   icon: Icon(Icons.add),
-//   label: Text("添加"),
-//   onPressed: () {},
-// ),
-FlatButton.icon(
-  icon: Icon(Icons.info),
-  label: Text("详情"),
-  onPressed: () {},
-),
-
-FlatButton(
-  color: Colors.blue,
-  highlightColor: Colors.blue[700],
-  colorBrightness: Brightness.dark,
-  splashColor: Colors.grey,
-  child: Text("Submit"),
-  shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-  onPressed: () {},
-),
-
-
-            FlatButton(
-              child: Text("Open HI CC"),
-              textColor: Colors.blue,
-              onPressed: () {
-                Navigator.push (context, 
-                  MaterialPageRoute(builder: (context) {
-                    return Text("HI CC" * 6, textAlign: TextAlign.center);
-                  })
-                );
-              }
-            ),
-
             FlatButton(
               child: Text("Open new route"),
               textColor: Colors.blue,
@@ -719,6 +610,73 @@ FlatButton(
                 Navigator.push (context, 
                   MaterialPageRoute(builder: (context) {
                     return Echo(text: "Hi CC");
+                  })
+                );
+              }
+            ),
+
+            FlatButton(
+              child: Text("Open ContextRoute"),
+              textColor: Colors.blue,
+              onPressed: () {
+                Navigator.push (context, 
+                  MaterialPageRoute(builder: (context) {
+                    return ContextRoute();
+                  })
+                );
+              }
+            ),
+
+            FlatButton(
+              child: Text("Open CounterWidget"),
+              textColor: Colors.blue,
+              onPressed: () {
+                Navigator.push (context, 
+                  MaterialPageRoute(builder: (context) {
+                      //移除计数器 
+                    return CounterWidget();
+                    //随便返回一个Text()
+                      // return Text("xxx");
+                  })
+                );
+              }
+            ),
+
+            FlatButton(
+              child: Text("Open StateRoute"),
+              textColor: Colors.blue,
+              onPressed: () {
+                Navigator.push (context, 
+                  MaterialPageRoute(builder: (context) {
+                    return StateRoute();
+                  })
+                );
+              }
+            ),
+
+            FlatButton(
+              child: Text("Open CupertinoTestRoute"),
+              textColor: Colors.blue,
+              onPressed: () {
+                Navigator.push (context, 
+                  MaterialPageRoute(builder: (context) {
+                    return CupertinoTestRoute();
+                  })
+                );
+              }
+            ),
+
+            FlatButton(
+              child: Text("Open TapboxA"),
+              textColor: Colors.blue,
+              onPressed: () {
+                Navigator.push (context, 
+                  MaterialPageRoute(builder: (context) {
+                    // return TapboxA();
+                    // return TapboxB();
+                    // return ParentWidget();
+                    return ParentWidgetC();
+                    // return TapboxC();
                   })
                 );
               }

@@ -493,6 +493,15 @@ class _TapboxCState extends State<TapboxC> {
   }
 }
 
+// String icons = "";
+// // accessible: &#xE914; or 0xE914 or E914
+// icons += "\uE914";
+// // error: &#xE000; or 0xE000 or E000
+// icons += " \uE000";
+// // fingerprint: &#xE90D; or 0xE90D or E90D
+// icons += " \uE90D";
+
+
 class SwitchAndCheckBoxTestRoute extends StatefulWidget {
   @override
   _SwitchAndCheckBoxTestRouteState createState() => new _SwitchAndCheckBoxTestRouteState();
@@ -530,16 +539,6 @@ class _SwitchAndCheckBoxTestRouteState extends State<SwitchAndCheckBoxTestRoute>
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  TextEditingController _unameController = TextEditingController();
-
-  @override
-  void initState() {
-  //监听输入改变  
-  _unameController.addListener((){
-    print(_unameController.text);
-  });
-}
-
 
   void _incrementCounter() {
     setState(() {
@@ -592,43 +591,25 @@ class _MyHomePageState extends State<MyHomePage> {
             IconButton(icon: Icon(Icons.thumb_up), onPressed: () {}),
 
 SwitchAndCheckBoxTestRoute(),
+// Text(icons,
+Text("\uE914  \uE000 \uE90D",
+  style: TextStyle(
+      fontFamily: "MaterialIcons",
+      fontSize: 24.0,
+      color: Colors.green
+  ),
+),
 
-          TextField(
-            autofocus: true,
-            controller: _unameController, //设置controller
-            decoration: InputDecoration(
-                labelText: "用户名",
-                hintText: "用户名或邮箱",
-                prefixIcon: Icon(Icons.person)
-            ),
-                onChanged: (v) {
-      print("onChange: $v");
-    }
-          ),
-          TextField(
-            controller: _unameController, //设置controller
-            decoration: InputDecoration(
-                labelText: "密码",
-                hintText: "您的登录密码",
-                prefixIcon: Icon(Icons.lock)
-            ),
-            obscureText: true,
-                onChanged: (v) {
-      print("onChange: $v");
-    }
-          ),
-
-
-// RaisedButton.icon(
-//   icon: Icon(Icons.send),
-//   label: Text("发送"),
-//   onPressed: () {},
-// ),
-// OutlineButton.icon(
-//   icon: Icon(Icons.add),
-//   label: Text("添加"),
-//   onPressed: () {},
-// ),
+RaisedButton.icon(
+  icon: Icon(Icons.send),
+  label: Text("发送"),
+  onPressed: () {},
+),
+OutlineButton.icon(
+  icon: Icon(Icons.add),
+  label: Text("添加"),
+  onPressed: () {},
+),
 FlatButton.icon(
   icon: Icon(Icons.info),
   label: Text("详情"),
@@ -644,7 +625,55 @@ FlatButton(
   shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
   onPressed: () {},
 ),
+Image.network("https://avatars2.githubusercontent.com/u/20411648?s=460&v=4", width : 100),
+Image.network("https://avatars2.githubusercontent.com/u/20411648?s=460&v=4", width : 100, color: Colors.blue, colorBlendMode: BlendMode.difference),
+Image.network("https://avatars2.githubusercontent.com/u/20411648?s=460&v=4", width : 100, height: 200.0, repeat: ImageRepeat.repeatY ,),
 
+
+            Text.rich(TextSpan(
+    children: [
+     TextSpan(
+       text: "Home: "
+     ),
+     TextSpan(
+       text: "CCCCCCCCCCCCCCCCCC",
+       style: TextStyle(
+         color: Colors.blue
+       ),  
+      //  recognizer: _tapRecognizer
+     ),
+    ]
+)),
+            Text("Hello world",
+  style: TextStyle(
+    color: Colors.blue,
+    fontSize: 18.0,
+    height: 1.2,  
+    fontFamily: "Courier",
+    background: new Paint()..color=Colors.yellow,
+    decoration:TextDecoration.underline,
+    decorationStyle: TextDecorationStyle.dashed
+  ),
+),
+            Text("Hello world",
+              textAlign: TextAlign.left,
+            ),
+
+            Text("Hello world! I'm Jack. "*4,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+
+            Text("Hello world",
+              textScaleFactor: 1.5,
+            ),
+            Text(
+              'You have pushed the button this many times:',
+            ),
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.headline4,
+            ),
 
             FlatButton(
               child: Text("Open HI CC"),
@@ -719,6 +748,73 @@ FlatButton(
                 Navigator.push (context, 
                   MaterialPageRoute(builder: (context) {
                     return Echo(text: "Hi CC");
+                  })
+                );
+              }
+            ),
+
+            FlatButton(
+              child: Text("Open ContextRoute"),
+              textColor: Colors.blue,
+              onPressed: () {
+                Navigator.push (context, 
+                  MaterialPageRoute(builder: (context) {
+                    return ContextRoute();
+                  })
+                );
+              }
+            ),
+
+            FlatButton(
+              child: Text("Open CounterWidget"),
+              textColor: Colors.blue,
+              onPressed: () {
+                Navigator.push (context, 
+                  MaterialPageRoute(builder: (context) {
+                      //移除计数器 
+                    return CounterWidget();
+                    //随便返回一个Text()
+                      // return Text("xxx");
+                  })
+                );
+              }
+            ),
+
+            FlatButton(
+              child: Text("Open StateRoute"),
+              textColor: Colors.blue,
+              onPressed: () {
+                Navigator.push (context, 
+                  MaterialPageRoute(builder: (context) {
+                    return StateRoute();
+                  })
+                );
+              }
+            ),
+
+            FlatButton(
+              child: Text("Open CupertinoTestRoute"),
+              textColor: Colors.blue,
+              onPressed: () {
+                Navigator.push (context, 
+                  MaterialPageRoute(builder: (context) {
+                    return CupertinoTestRoute();
+                  })
+                );
+              }
+            ),
+
+            FlatButton(
+              child: Text("Open TapboxA"),
+              textColor: Colors.blue,
+              onPressed: () {
+                Navigator.push (context, 
+                  MaterialPageRoute(builder: (context) {
+                    // return TapboxA();
+                    // return TapboxB();
+                    // return ParentWidget();
+                    return ParentWidgetC();
+                    // return TapboxC();
                   })
                 );
               }
