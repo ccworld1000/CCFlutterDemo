@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'dart:math' as math;
 
 void main() {
   runApp(MyApp());
@@ -29,14 +28,13 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      // routes: {
-      //   "CC": (context) => CCRoute(),
-      //   "new_page": (context) => NewRoute(),
-      //   "/": (context) => MyHomePage(title: 'Flutter Demo Home Page'),
-      //   "Tips2": (context) => TipRoute(text: ModalRoute.of(context).settings.arguments),
-      // },
+      routes: {
+        "CC": (context) => CCRoute(),
+        "new_page": (context) => NewRoute(),
+        "/": (context) => MyHomePage(title: 'Flutter Demo Home Page'),
+        "Tips2": (context) => TipRoute(text: ModalRoute.of(context).settings.arguments),
+      },
       // home: MyHomePage(title: 'Flutter Demo Home Page'),
-      home: ScaffoldRoute(),
     );
   }
 }
@@ -1012,411 +1010,6 @@ class PaddingTestRoute extends StatelessWidget {
   }
 }
 
-class MyDrawer extends StatelessWidget {
-  const MyDrawer({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      child: MediaQuery.removePadding(
-        context: context,
-        //移除抽屉菜单顶部默认留白
-        removeTop: true,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 38.0),
-              child: Row(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: ClipOval(
-                      child: Image.asset(
-                        "imgs/avatar.png",
-                        width: 80,
-                      ),
-                    ),
-                  ),
-                  Text(
-                    "Wendux",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  )
-                ],
-              ),
-            ),
-            Expanded(
-              child: ListView(
-                children: <Widget>[
-                  ListTile(
-                    leading: const Icon(Icons.add),
-                    title: const Text('Add account'),
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.settings),
-                    title: const Text('Manage accounts'),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class ScaffoldRoute extends StatefulWidget {
-  @override
-  _ScaffoldRouteState createState() => _ScaffoldRouteState();
-}
-
-class _ScaffoldRouteState extends State<ScaffoldRoute> with SingleTickerProviderStateMixin {
-  int _selectedIndex = 1;
-
-  TabController _tabController; //需要定义一个Controller
-  List tabs = ["新闻", "历史", "图片"];
-
-  @override
-  void initState() {
-    super.initState();
-    // 创建Controller  
-    _tabController = TabController(length: tabs.length, vsync: this);
-  }
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar( //导航栏
-        title: Text("App Name"), 
-        actions: <Widget>[ //导航栏右侧菜单
-          IconButton(icon: Icon(Icons.share), onPressed: () {}),
-        ],
-        bottom: TabBar(   //生成Tab菜单
-          controller: _tabController,
-          tabs: tabs.map((e) => Tab(text: e)).toList()
-        ),
-      ),
-      drawer: new MyDrawer(), //抽屉
-      body: TabBarView(
-        controller: _tabController,
-        children: tabs.map((e) { //创建3个Tab页
-      return Container(
-        alignment: Alignment.center,
-        child: Text(e, textScaleFactor: 5),
-      );
-    }).toList(),
-      ),
-      // bottomNavigationBar: BottomNavigationBar( // 底部导航
-      //   items: <BottomNavigationBarItem>[
-      //     BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Home')),
-      //     BottomNavigationBarItem(icon: Icon(Icons.business), title: Text('Business')),
-      //     BottomNavigationBarItem(icon: Icon(Icons.school), title: Text('School')),
-      //   ],
-      //   currentIndex: _selectedIndex,
-      //   fixedColor: Colors.blue,
-      //   onTap: _onItemTapped,
-      // ),
-
-      bottomNavigationBar: BottomAppBar(
-  color: Colors.white,
-  shape: CircularNotchedRectangle(), // 底部导航栏打一个圆形的洞
-  child: Row(
-    children: [
-      IconButton(icon: Icon(Icons.home)),
-      SizedBox(), //中间位置空出
-      IconButton(icon: Icon(Icons.business)),
-    ],
-    mainAxisAlignment: MainAxisAlignment.spaceAround, //均分底部导航栏横向空间
-  ),
-),
-
-      floatingActionButton: FloatingActionButton( //悬浮按钮
-          child: Icon(Icons.add),
-          onPressed:_onAdd
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-    );
-  }
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-  void _onAdd(){
-  }
-}
-
-class _MyHomePageStateV2 extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    Widget redBox = DecoratedBox(decoration: BoxDecoration(color: Colors.red));
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-
-      leading: Builder(builder: (context) {
-      return IconButton(
-        icon: Icon(Icons.dashboard, color: Colors.white), //自定义图标
-        onPressed: () {
-          // 打开抽屉菜单  
-          Scaffold.of(context).openDrawer(); 
-        },
-      );
-    }),
-
-      ),
-      body: Center(
-        child: Column(
-  //测试Row对齐方式，排除Column默认居中对齐的干扰
-  crossAxisAlignment: CrossAxisAlignment.start,
-  children: <Widget>[
-    Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Text(" hello world "),
-        Text(" I am Jack "),
-      ],
-    ),
-    // Row(
-    //   mainAxisSize: MainAxisSize.min,
-    //   mainAxisAlignment: MainAxisAlignment.center,
-    //   children: <Widget>[
-    //     Text(" hello world "),
-    //     Text(" I am Jack "),
-    //   ],
-    // ),
-    // Row(
-    //   mainAxisAlignment: MainAxisAlignment.end,
-    //   textDirection: TextDirection.rtl,
-    //   children: <Widget>[
-    //     Text(" hello world "),
-    //     Text(" I am Jack "),
-    //   ],
-    // ),
-    Row(
-      crossAxisAlignment: CrossAxisAlignment.start,  
-      verticalDirection: VerticalDirection.up,
-      children: <Widget>[
-        Text(" hello world ", style: TextStyle(fontSize: 30.0),),
-        Text(" I am Jack "),
-      ],
-    ),
-    PaddingTestRoute(),
-
-// ConstrainedBox(
-//   constraints: BoxConstraints(
-//     minWidth: double.infinity, //宽度尽可能大
-//     minHeight: 50.0 //最小高度为50像素
-//   ),
-//   child: Container(
-//       height: 5.0, 
-//       child: redBox 
-//   ),
-// ),
-
-// SizedBox(
-//   width: 80,
-//   height: 80,
-//   child: redBox
-// ),
-
-// ConstrainedBox(
-//   constraints: BoxConstraints.tightFor(width: 80.0,height: 80.0),
-//   child: redBox, 
-// ),
-// // BoxConstraints(minHeight: 80.0,maxHeight: 80.0,minWidth: 80.0,maxWidth: 80.0),
-// ConstrainedBox(
-//     constraints: BoxConstraints(minWidth: 60.0, minHeight: 60.0), //父
-//     child: ConstrainedBox(
-//       constraints: BoxConstraints(minWidth: 90.0, minHeight: 20.0),//子
-//       child: redBox,
-//     )
-// ),
-
-// ConstrainedBox(
-//     constraints: BoxConstraints(minWidth: 90.0, minHeight: 20.0),
-//     child: ConstrainedBox(
-//       constraints: BoxConstraints(minWidth: 60.0, minHeight: 60.0),
-//       child: redBox,
-//     )
-// ),
-
-// ConstrainedBox(
-//     constraints: BoxConstraints(minWidth: 60.0, minHeight: 100.0),  //父
-//     child: UnconstrainedBox( //“去除”父级限制
-//       child: ConstrainedBox(
-//         constraints: BoxConstraints(minWidth: 90.0, minHeight: 20.0),//子
-//         child: redBox,
-//       ),
-//     )
-// ),
-
-//  DecoratedBox(
-//     decoration: BoxDecoration(
-//       gradient: LinearGradient(colors:[Colors.red,Colors.orange[700]]), //背景渐变
-//       borderRadius: BorderRadius.circular(3.0), //3像素圆角
-//       boxShadow: [ //阴影
-//         BoxShadow(
-//             color:Colors.black54,
-//             offset: Offset(2.0,2.0),
-//             blurRadius: 4.0
-//         )
-//       ]
-//     ),
-//   child: Padding(padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 18.0),
-//     child: Text("Login", style: TextStyle(color: Colors.white),),
-//   )
-// ),
-
-Text("Div"),
-Text("Div"),
-Text("Div"),
-
-Container(
-  color: Colors.black,
-  child: new Transform(
-    alignment: Alignment.topRight, //相对于坐标系原点的对齐方式
-    transform: new Matrix4.skewY(0.3), //沿Y轴倾斜0.3弧度
-    child: new Container(
-      padding: const EdgeInsets.all(8.0),
-      color: Colors.deepOrange,
-      child: const Text('Apartment for rent!'),
-    ),
-  ),
-),
-
-// DecoratedBox(
-//   decoration:BoxDecoration(color: Colors.red),
-//   //默认原点为左上角，左移20像素，向上平移5像素  
-//   child: Transform.translate(
-//     offset: Offset(-20.0, -5.0),
-//     child: Text("Hello world"),
-//   ),
-// ),
-
-// DecoratedBox(
-//   decoration:BoxDecoration(color: Colors.red),
-//   child: Transform.rotate(
-//     //旋转90度
-//     angle:math.pi/2 ,
-//     child: Text("Hello world"),
-//   ),
-// ),
-
-// DecoratedBox(
-//   decoration:BoxDecoration(color: Colors.red),
-//   child: Transform.scale(
-//       scale: 1.5, //放大到1.5倍
-//       child: Text("Hello world")
-//   )
-// ),
-
-//  Row(
-//   mainAxisAlignment: MainAxisAlignment.center,
-//   children: <Widget>[
-//     DecoratedBox(
-//       decoration:BoxDecoration(color: Colors.red),
-//       child: Transform.scale(scale: 1.5,
-//           child: Text("Hello world")
-//       )
-//     ),
-//     Text("你好", style: TextStyle(color: Colors.green, fontSize: 18.0),)
-//   ],
-// ),
-
-// Row(
-//   mainAxisAlignment: MainAxisAlignment.center,
-//   children: <Widget>[
-//     DecoratedBox(
-//       decoration: BoxDecoration(color: Colors.red),
-//       //将Transform.rotate换成RotatedBox  
-//       child: RotatedBox(
-//         quarterTurns: 1, //旋转90度(1/4圈)
-//         child: Text("Hello world"),
-//       ),
-//     ),
-//     Text("你好", style: TextStyle(color: Colors.green, fontSize: 18.0),)
-//   ],
-// ),
-
-Container(
-  margin: EdgeInsets.only(top: 50.0, left: 120.0), //容器外填充
-  constraints: BoxConstraints.tightFor(width: 200.0, height: 150.0), //卡片大小
-  decoration: BoxDecoration(//背景装饰
-      gradient: RadialGradient( //背景径向渐变
-          colors: [Colors.red, Colors.orange],
-          center: Alignment.topLeft,
-          radius: .98
-      ),
-      boxShadow: [ //卡片阴影
-        BoxShadow(
-            color: Colors.black54,
-            offset: Offset(2.0, 2.0),
-            blurRadius: 4.0
-        )
-      ]
-  ),
-  transform: Matrix4.rotationZ(.2), //卡片倾斜变换
-  alignment: Alignment.center, //卡片内文字居中
-  child: Text( //卡片文字
-    "5.20", style: TextStyle(color: Colors.white, fontSize: 40.0),
-  ),
-),
-
-Container(
-  margin: EdgeInsets.all(20.0), //容器外补白
-  color: Colors.orange,
-  child: Text("Hello world!"),
-),
-Container(
-  padding: EdgeInsets.all(20.0), //容器内补白
-  color: Colors.orange,
-  child: Text("Hello world!"),
-),
-
-Padding(
-  padding: EdgeInsets.all(20.0),
-  child: DecoratedBox(
-    decoration: BoxDecoration(color: Colors.orange),
-    child: Text("Hello world!"),
-  ),
-),
-DecoratedBox(
-  decoration: BoxDecoration(color: Colors.orange),
-  child: Padding(
-    padding: const EdgeInsets.all(20.0),
-    child: Text("Hello world!"),
-  ),
-),
-
-
-
-  ],
-),
-
-
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
-}
-
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
@@ -1432,26 +1025,112 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
-
-      leading: Builder(builder: (context) {
-      return IconButton(
-        icon: Icon(Icons.dashboard, color: Colors.white), //自定义图标
-        onPressed: () {
-          // 打开抽屉菜单  
-          Scaffold.of(context).openDrawer(); 
-        },
-      );
-    }),
-
       ),
       body: Center(
         child: Column(
   //测试Row对齐方式，排除Column默认居中对齐的干扰
   crossAxisAlignment: CrossAxisAlignment.start,
   children: <Widget>[
-    // _ScaffoldRouteState();
-    ScaffoldRoute(),
-    // PaddingTestRoute(),
+    Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(" hello world "),
+        Text(" I am Jack "),
+      ],
+    ),
+    Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(" hello world "),
+        Text(" I am Jack "),
+      ],
+    ),
+    Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      textDirection: TextDirection.rtl,
+      children: <Widget>[
+        Text(" hello world "),
+        Text(" I am Jack "),
+      ],
+    ),
+    Row(
+      crossAxisAlignment: CrossAxisAlignment.start,  
+      verticalDirection: VerticalDirection.up,
+      children: <Widget>[
+        Text(" hello world ", style: TextStyle(fontSize: 30.0),),
+        Text(" I am Jack "),
+      ],
+    ),
+    PaddingTestRoute(),
+
+ConstrainedBox(
+  constraints: BoxConstraints(
+    minWidth: double.infinity, //宽度尽可能大
+    minHeight: 50.0 //最小高度为50像素
+  ),
+  child: Container(
+      height: 5.0, 
+      child: redBox 
+  ),
+),
+
+SizedBox(
+  width: 80,
+  height: 80,
+  child: redBox
+),
+
+ConstrainedBox(
+  constraints: BoxConstraints.tightFor(width: 80.0,height: 80.0),
+  child: redBox, 
+),
+// BoxConstraints(minHeight: 80.0,maxHeight: 80.0,minWidth: 80.0,maxWidth: 80.0),
+ConstrainedBox(
+    constraints: BoxConstraints(minWidth: 60.0, minHeight: 60.0), //父
+    child: ConstrainedBox(
+      constraints: BoxConstraints(minWidth: 90.0, minHeight: 20.0),//子
+      child: redBox,
+    )
+),
+
+ConstrainedBox(
+    constraints: BoxConstraints(minWidth: 90.0, minHeight: 20.0),
+    child: ConstrainedBox(
+      constraints: BoxConstraints(minWidth: 60.0, minHeight: 60.0),
+      child: redBox,
+    )
+),
+
+ConstrainedBox(
+    constraints: BoxConstraints(minWidth: 60.0, minHeight: 100.0),  //父
+    child: UnconstrainedBox( //“去除”父级限制
+      child: ConstrainedBox(
+        constraints: BoxConstraints(minWidth: 90.0, minHeight: 20.0),//子
+        child: redBox,
+      ),
+    )
+),
+
+ DecoratedBox(
+    decoration: BoxDecoration(
+      gradient: LinearGradient(colors:[Colors.red,Colors.orange[700]]), //背景渐变
+      borderRadius: BorderRadius.circular(3.0), //3像素圆角
+      boxShadow: [ //阴影
+        BoxShadow(
+            color:Colors.black54,
+            offset: Offset(2.0,2.0),
+            blurRadius: 4.0
+        )
+      ]
+    ),
+  child: Padding(padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 18.0),
+    child: Text("Login", style: TextStyle(color: Colors.white),),
+  )
+)
+
+
+
 
   ],
 ),
@@ -1466,4 +1145,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
