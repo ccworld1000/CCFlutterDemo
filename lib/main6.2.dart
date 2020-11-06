@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:math' as math;
-import 'package:english_words/english_words.dart';
-
 
 void main() {
   runApp(MyApp());
@@ -27,206 +25,44 @@ class SingleChildScrollViewTestRoute extends StatelessWidget {
   }
 }
 
-class CClist extends StatelessWidget {
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("CClist")
-        ),
-        body:  ListView.builder(
-          itemCount : 100,
-          itemExtent: 50,
-          itemBuilder: (BuildContext context, int index) {
-            return ListTile(title: Text("$index"));
-          }
-        )
-    );
-  }
-}
+// class SingleChildScrollViewTestRoute extends StatelessWidget {
+//   Widget build(BuildContext context) {
+//     String str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+//     return Scrollbar(
+//       child: SingleChildScrollView(
+//         padding: EdgeInsets.all(16.0),
+//         child: Center (
+//           child: Column(
+//             children: str.split("")
+//             .map((c) => Text(c, textScaleFactor: 2.0))
+//             .toList()
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
-class CClist2 extends StatelessWidget {
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("CClist")
-        ),
-        body:  Column(children: <Widget>[
-          ListTile(title:Text("商品列表")),
-
-          ListView.builder(
-            itemCount : 100,
-            itemExtent: 50,
-            itemBuilder: (BuildContext context, int index) {
-              return ListTile(title: Text("$index"));
-            }
-          )
-        ])
-    );
-  }
-}
-
-class CClist3 extends StatelessWidget {
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("CClist")
-        ),
-        body:  Column(children: <Widget>[
-          ListTile(title:Text("商品列表")),
-
-          SizedBox(
-            height: 400, //指定列表高度为400
-            child:
-                  ListView.builder(
-                    itemCount : 100,
-                    itemExtent: 50,
-                    itemBuilder: (BuildContext context, int index) {
-                      return ListTile(title: Text("$index"));
-                    }
-                  )
-          ),
-        ])
-    );
-  }
-}
-
-class CClist4 extends StatelessWidget {
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("CClist")
-        ),
-        body:  Column(children: <Widget>[
-          ListTile(title:Text("商品列表")),
-
-          SizedBox(
-            height:  MediaQuery.of(context).size.height-24-56-56, //指定列表高度为400
-            child:
-                  ListView.builder(
-                    itemCount : 100,
-                    itemExtent: 50,
-                    itemBuilder: (BuildContext context, int index) {
-                      return ListTile(title: Text("$index"));
-                    }
-                  )
-          ),
-        ])
-    );
-  }
-}
-
-class CClist5 extends StatelessWidget {
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("CClist")
-        ),
-        body:  Column(children: <Widget>[
-          ListTile(title:Text("商品列表")),
-
-           Expanded(
-            child:
-                ListView.builder(
-                  itemCount : 100,
-                  itemExtent: 50,
-                  itemBuilder: (BuildContext context, int index) {
-                    return ListTile(title: Text("$index"));
-                  }
-                )
-           )
-        ])
-    );
-  }
-}
-
-class ListView3 extends StatelessWidget {
-  Widget build(BuildContext context) {
-    Widget drivider1 = Divider(color: Colors.blue);
-    Widget drivider2 = Divider(color: Colors.green);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("CClist")
-        ),
-        body:  ListView.separated(
-          itemCount : 100,
-          // itemExtent: 50,
-          itemBuilder: (BuildContext context, int index) {
-            return ListTile(title: Text("$index"));
-          },
-
-          separatorBuilder: (BuildContext context, int index) {
-            return index % 2 == 0 ? drivider1 : drivider2;
-          },
-        )
-    );
-  }
-}
-
-class InfiniteListView extends StatefulWidget {
-  @override
-  _InfiniteListViewState createState() => new _InfiniteListViewState();
-}
-
-class _InfiniteListViewState extends State<InfiniteListView> {
-  static const loadingTag = "##loading##"; //表尾标记
-  var _words = <String>[loadingTag];
-
-  @override
-  void initState() {
-    super.initState();
-    _retrieveData();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.separated(
-      itemCount: _words.length,
-      itemBuilder: (context, index) {
-        //如果到了表尾
-        if (_words[index] == loadingTag) {
-          //不足100条，继续获取数据
-          if (_words.length - 1 < 100) {
-            //获取数据
-            _retrieveData();
-            //加载时显示loading
-            return Container(
-              padding: const EdgeInsets.all(16.0),
-              alignment: Alignment.center,
-              child: SizedBox(
-                  width: 24.0,
-                  height: 24.0,
-                  child: CircularProgressIndicator(strokeWidth: 2.0)
-              ),
-            );
-          } else {
-            //已经加载了100条数据，不再获取数据。
-            return Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.all(16.0),
-                child: Text("没有更多了", style: TextStyle(color: Colors.grey),)
-            );
-          }
-        }
-        //显示单词列表项
-        return ListTile(title: Text(_words[index]));
-      },
-      separatorBuilder: (context, index) => Divider(height: .0),
-    );
-  }
-
-  void _retrieveData() {
-    Future.delayed(Duration(seconds: 2)).then((e) {
-      setState(() {
-        //重新构建列表
-        _words.insertAll(_words.length - 1,
-          //每次生成20个单词
-          generateWordPairs().take(20).map((e) => e.asPascalCase).toList()
-          );
-      });
-    });
-  }
-
-}
+// class SingleChildScrollViewTestRoute extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     String str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+//     return Scrollbar( // 显示进度条
+//       child: SingleChildScrollView(
+//         padding: EdgeInsets.all(16.0),
+//         child: Center(
+//           child: Column( 
+//             //动态创建一个List<Widget>  
+//             children: str.split("") 
+//                 //每一个字母都用一个Text显示,字体为原来的两倍
+//                 .map((c) => Text(c, textScaleFactor: 2.0,)) 
+//                 .toList(),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -259,41 +95,7 @@ class MyApp extends StatelessWidget {
       // },
       // home: MyHomePage(title: 'Flutter Demo Home Page'),
       // home: ScaffoldRoute(),
-      // home: SingleChildScrollViewTestRoute(),
-
-    //   home: ListView(
-    //     shrinkWrap: true,
-    //     children: <Widget> [
-    // const Text('I\'m dedicating every day to you'),
-    // const Text('Domestic life was never quite my style'),
-    // const Text('When you smile, you knock me out, I fall apart'),
-    // const Text('And I thought I was so smart'),
-    //     ],
-    //   ),
-
-        // home: ListView.builder(
-        //   itemCount : 100,
-        //   itemExtent: 50,
-        //   itemBuilder: (BuildContext context, int index) {
-        //     return ListTile(title: Text("$index"));
-        //   }
-        // ),
-
-        //  home: CClist(),
-        // home: ListView3(),
-        // home: InfiniteListView(),
-
-        // home: Scaffold(
-        //   appBar: AppBar(
-        //     title: Text("InfiniteListView")
-        //   ),
-        //   body:  InfiniteListView()
-        // ),
-
-        // home: CClist2(),
-        // home: CClist3(),
-        // home: CClist4(),
-        home: CClist5(),
+      home: SingleChildScrollViewTestRoute(),
 
     );
   }
